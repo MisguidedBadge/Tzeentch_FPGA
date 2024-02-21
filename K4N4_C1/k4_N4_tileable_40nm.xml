@@ -39,7 +39,7 @@
   </models>
   <tiles>
     <tile name="io_hard" area="0">
-      <sub_tile name="io_input" capacity="10">
+      <sub_tile name="io_input" capacity="14">
         <equivalent_sites>
           <site pb_type="io_input"/>
         </equivalent_sites>
@@ -49,7 +49,7 @@
           <loc side="top">io_input.inpad </loc>
         </pinlocations>
       </sub_tile>
-      <sub_tile name="io_output" capacity="4">
+      <sub_tile name="io_output" capacity="6">
         <equivalent_sites>
           <site pb_type="io_output"/>
         </equivalent_sites>
@@ -65,8 +65,8 @@
         <equivalent_sites>
           <site pb_type="clb"/>
         </equivalent_sites>
-        <input name="I" num_pins="10" equivalent="full"/>
-        <output name="O" num_pins="4" equivalent="none"/>
+        <input name="I" num_pins="14" equivalent="full"/>
+        <output name="O" num_pins="6" equivalent="none"/>
         <fc in_type="frac" in_val="0.55" out_type="frac" out_val="0.10"/>
         <pinlocations pattern="custom">
           <loc side="top">clb.I[9:0] clb.O[3:0]</loc>
@@ -250,12 +250,12 @@
 	   -->
     <!--- 2n + 2 -> number of input into the crossbar -->
     <pb_type name="clb">
-      <input name="I" num_pins="10" equivalent="full"/>
-      <output name="O" num_pins="4" equivalent="none"/>
+      <input name="I" num_pins="14" equivalent="full"/>
+      <output name="O" num_pins="6" equivalent="none"/>
       <!-- Describe basic logic element.  
              Each basic logic element has a 4-LUT that can be optionally registered
         -->
-      <pb_type name="fle" num_pb="4">
+      <pb_type name="fle" num_pb="6">
         <input name="in" num_pins="4"/>
         <output name="out" num_pins="1"/>
         <!-- 4-LUT mode definition begin -->
@@ -311,16 +311,16 @@
 		     Since all our outputs LUT outputs go to a BLE output, and have a delay of 
 		     25 ps to do so, we subtract 25 ps from the 100 ps delay of a feedback
 		     to get the part that should be marked on the crossbar.	 -->
-        <complete name="crossbar" input="clb.I fle[3:0].out" output="fle[3:0].in">
-          <delay_constant max="95e-12" in_port="clb.I" out_port="fle[3:0].in"/>
-          <delay_constant max="75e-12" in_port="fle[3:0].out" out_port="fle[3:0].in"/>
+        <complete name="crossbar" input="clb.I fle[5:0].out" output="fle[5:0].in">
+          <delay_constant max="95e-12" in_port="clb.I" out_port="fle[5:0].in"/>
+          <delay_constant max="75e-12" in_port="fle[5:0].out" out_port="fle[5:0].in"/>
         </complete>
         <!-- This way of specifying direct connection to clb outputs is important because this architecture uses automatic spreading of opins.  
                By grouping to output pins in this fashion, if a logic block is completely filled by 6-LUTs, 
                then the outputs those 6-LUTs take get evenly distributed across all four sides of the CLB instead of clumped on two sides (which is what happens with a more
                naive specification).
           -->
-        <direct name="clbouts1" input="fle[3:0].out" output="clb.O[3:0]"/>
+        <direct name="clbouts1" input="fle[5:0].out" output="clb.O[5:0]"/>
       </interconnect>
       <!-- Every input pin is driven by 15% of the tracks in a channel, every output pin is driven by 10% of the tracks in a channel -->
       <!-- Place this general purpose logic block in any unspecified column -->

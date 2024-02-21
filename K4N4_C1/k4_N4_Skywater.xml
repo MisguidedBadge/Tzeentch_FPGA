@@ -110,7 +110,7 @@
       <output_buffer exist="true" circuit_model_name="p_buf"/>
       <port type="input" prefix="D" lib_name="D" size="1"/>
       <port type="output" prefix="Q" lib_name="Q" size="1"/>
-      <port type="input" prefix="reset" lib_name="RESET_B" size="1" is_global="true" default_val="0" is_reset="true"/>
+      <port type="input" prefix="reset" lib_name="RESET_B" size="1" is_global="true" default_val="1" is_reset="true"/>
       <port type="clock" prefix="clk" lib_name="CLK" size="1" is_global="true" default_val="0"/>
     </circuit_model>
     <circuit_model type="lut" name="lut4" prefix="lut4" dump_structural_verilog="true">
